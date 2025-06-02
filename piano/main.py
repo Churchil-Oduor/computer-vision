@@ -2,6 +2,9 @@ import cv2 as cv
 from utils import RectangleDetector
 from utils import HandTracker
 from utils import point_inside_rectangle
+#from playsound import playsound
+import threading
+from utils import play_note
 
 def main():
     feed = cv.VideoCapture(0)
@@ -49,6 +52,7 @@ def main():
                         if point_inside_rectangle((x_tip, y_tip), rect):
                             cv.putText(frame, f"Key {i+1} pressed", (10, 40 + i* 30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0,0,255), 2),
                             cv.drawContours(frame, [rect], -1, (0,0, 255), 3)
+                            threading.Thread(target=play_note, daemon=True).start()
 
         cv.imshow("Piano key detection", frame)
 

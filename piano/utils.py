@@ -1,5 +1,7 @@
 import cv2 as cv
 import mediapipe as mp
+from playsound import playsound
+
 
 class RectangleDetector:
     """
@@ -54,4 +56,6 @@ class HandTracker:
         self.mp_draw.draw_landmarks(frame, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
 
 
+def play_note():
+    playsound("note.mp3")
 
