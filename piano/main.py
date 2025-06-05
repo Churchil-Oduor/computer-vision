@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import cv2 as cv
 from utils import RectangleDetector
 from utils import HandTracker
@@ -9,7 +10,7 @@ from utils import play_note
 def main():
     feed = cv.VideoCapture(0)
     rect_detector = RectangleDetector()
-    hand_tracker = HandTracker()
+    hand_tracker = HandTracker(2)
 
     rectangles = []
     rectangles_Detected = False
