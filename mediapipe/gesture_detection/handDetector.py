@@ -60,3 +60,4 @@ class HandDetector:
                 if draw and id in marks:
                     cv.circle(img, (cx, cy), 8, (255, 0, 8), cv.FILLED)
         return lmList
+

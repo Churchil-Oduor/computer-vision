@@ -10,7 +10,7 @@ cap.set(3, wCam)
 cap.set(4, hCam)
 
 
-detector = htm.HandDetector(min_detectionCon=0.7)
+detector = htm.HandDetector(min_detectionCon=0.2)
 
 while True:
     isTrue, frame = cap.read()

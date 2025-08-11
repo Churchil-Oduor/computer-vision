@@ -12,7 +12,7 @@ while True:
         break
 
     detector = fd.FaceDetector()
-    detector.findFace(frame, draw=False)
+    detector.findFace(frame, draw=True)
 
     cv.waitKey(1)
 

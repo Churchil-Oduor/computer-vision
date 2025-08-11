@@ -1,6 +1,6 @@
 import cv2 as cv
 import mediapipe as mp
-from playsound import playsound
+#from playsound import playsound
 
 
 class RectangleDetector:

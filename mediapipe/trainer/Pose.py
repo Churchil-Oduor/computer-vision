@@ -71,8 +71,12 @@ class PoseDetector:
         line_1 = self.lineLengthCalculator(p1, p2) # shoulder to elbow, constant
         line_2 =self.lineLengthCalculator(p2, p3)  # elbow to wrist, constant
         variable_line = self.lineLengthCalculator(p1, p3) # shoulder to wrist, variable
+#        print(f"1. {line_1}\n 2. {line_2}\n 3. {variable_line}")
         cosine = ((line_1 ** 2 + line_2 ** 2) - variable_line ** 2) / (2 * line_1 * line_2)
         self.angle = int(math.degrees(math.acos(cosine)))
+
+
+        print(f"line 1: {line_1}\nline 2: {line_2}\nline 3: {variable_line}\nAngle: {self.angle}\n\n\n")
 
         return self.angle
 

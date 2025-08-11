@@ -6,7 +6,8 @@ import numpy as np
 
 
 cap = cv.VideoCapture(0)
-
+mphands = mp.solutions.hands
+hands = mphands.Hands()
 
 while True:
     isTrue, img = cap.read()
@@ -15,7 +16,10 @@ while True:
         print("Encountered Error in frame!")
         break
 
-    flipped = cv.flip(img, 1)
+    imgrgb = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+    flipped = cv.flip(imgrgb, 1)    
     cv.imshow("image", flipped)
+    results = hands.process(flipped)
+    print(results.multi_hand_landmarks)
     cv.waitKey(1)
 
