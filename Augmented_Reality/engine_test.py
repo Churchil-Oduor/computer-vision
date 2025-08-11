@@ -19,7 +19,9 @@ class HandTrack:
 
         self.base_line = [(10, 0), (20, 0)]
         self.calc = utl.Calculations()
-
+        self.prev_angle = 0.0
+        self.total_angle = 0.0  
+        
     def handPositions(self, frame, draw=True):
         """
         Detects left/right hands and fingertip positions.
@@ -62,30 +64,34 @@ class HandTrack:
 
         return frame, self.my_hands
 
+
+
+
     def handStatus(self, frame):
-        """
-        Detects the fingertips to determine the hand status
-        
-        Returns:
-            
-        """
         right_hand = self.my_hands["right_hand"]
         left_hand = self.my_hands["left_hand"]
 
-        if len(right_hand) > 0:
-            right_index = right_hand[1]
-            #right_thumb = right_hand[0]
-
-        if len(left_hand) > 0:
-            left_index = left_hand[1]
-            #left_thumb = left_hand[0]
-
         if len(left_hand) > 0 and len(right_hand) > 0:
-            x1, y1 = left_index[1], left_index[2]   # Left index tip
-            #x2, y2 = left_thumb[1], left_thumb[2]   # Left thumb tip
-            x3, y3 = right_index[1], right_index[2] # Right index tip
-            #x4, y4 = right_thumb[1], right_thumb[2] # Right thumb tip
-            line_1 = [(x1, y1), (x3, y3)]
-            angle = self.calc.rotationAngle(self.base_line, line_1)
-            cv.line(frame, (x1, y1), (x3, y3), (255, 7, 6), 3)
+            right_index = right_hand[1]
+            left_index = left_hand[1]
+            x1, y1 = left_index[1], left_index[2]
+            x3, y3 = right_index[1], right_index[2]
+            current_line = [(x1, y1), (x3, y3)]
 
+            # Angle difference from previous baseline
+            delta_angle = self.calc.rotationAngle(self.base_line, current_line)
+
+            # Smooth delta
+            delta_angle = 0.8 * self.prev_angle + 0.2 * delta_angle
+            self.prev_angle = delta_angle
+
+            # Accumulate rotation so line doesn't reset
+            self.total_angle += delta_angle
+
+            # Update baseline to current line for next frame
+            self.base_line = current_line
+
+            # Debug info
+            cv.putText(frame, f"Total Angle: {self.total_angle:.1f}", (30, 40), cv.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
+
+        return self.total_angle

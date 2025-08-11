@@ -30,9 +30,9 @@ class Calculations:
         m1 = self.lineGradient(line_1)
         m2 = self.lineGradient(line_2)
         tan = (m1 - m2) / (1 + m1 * m2)
-        angle = mt.degrees(mt.atan(tan))
+        angle = mt.atan(tan)
 
-        return angle
+        return angle * -1
 
     def rotation(self, c, point, theta):
         """

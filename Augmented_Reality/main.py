@@ -2,11 +2,13 @@
 #import engine as eng
 import engine_test as eng
 import cv2 as cv
+import utils as utl
 
 def main():
 
     cap = cv.VideoCapture(0)
     handDetector = eng.HandTrack()
+    calc = utl.Calculations()
 
     while True:
         isTrue, frame = cap.read()
@@ -18,16 +20,13 @@ def main():
 
         frame = cv.flip(frame, 1)
         frame, gestures = handDetector.handPositions(frame, True)
-        
         h, w, _ = frame.shape
-
-        #####
         cx, cy = w // 2, h // 2
-        cv.line(frame, (cx, 0), (cx, h), (0, 255, 0), 2)
-        cv.line(frame, (0, cy), (w, cy), (0, 255, 0), 2)
-        #####
-
-
+        center = calc.center_point((0, cy), (w, cy))
+        angle = handDetector.handStatus(frame)
+        x1_rot, y1_rot = calc.rotation(center, (0, cy), angle)
+        x2_rot, y2_rot = calc.rotation(center, (w, cy), angle)
+        cv.line(frame, (int(x1_rot), int(y1_rot)), (int(x2_rot), int(y2_rot)), (0, 255, 0), 2)
 
         cv.imshow("frame", frame)
         cv.waitKey(1)
