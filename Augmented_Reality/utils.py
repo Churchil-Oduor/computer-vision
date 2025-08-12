@@ -97,17 +97,7 @@ class Transformation:
         """
         return p1 + t_vector
 
-        
-
-
 def main():
-    R = Transformation()
-    p1 = np.array([4, 1])
-
-    rot = R.rotation(p1, 1.5708)
-    t_vec = np.array([3, 2])
-    tran = R.translation(rot, t_vec)
-    print(tran)
-
+    pass
 if __name__=="__main__":
     main()

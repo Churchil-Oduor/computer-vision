@@ -3,12 +3,14 @@
 import engine_test as eng
 import cv2 as cv
 import utils as utl
+import aruco as arc
 
 def main():
 
     cap = cv.VideoCapture(0)
     handDetector = eng.HandTrack()
     calc = utl.Calculations()
+    aruco = arc.Aruco()
 
     while True:
         isTrue, frame = cap.read()
@@ -17,6 +19,8 @@ def main():
             print("Error in feed")
             break
 
+        frame = aruco.detection(frame)
+        """
 
         frame = cv.flip(frame, 1)
         frame, gestures = handDetector.handPositions(frame, True)
@@ -27,7 +31,7 @@ def main():
         x1_rot, y1_rot = calc.rotation(center, (0, cy), angle)
         x2_rot, y2_rot = calc.rotation(center, (w, cy), angle)
         cv.line(frame, (int(x1_rot), int(y1_rot)), (int(x2_rot), int(y2_rot)), (0, 255, 0), 2)
-
+        """
         cv.imshow("frame", frame)
         cv.waitKey(1)
 
