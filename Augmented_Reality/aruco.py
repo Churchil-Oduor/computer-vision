@@ -29,11 +29,12 @@ class Aruco:
 
         if ids is not None:
             cv2.aruco.drawDetectedMarkers(frame, corners, ids)
-            print(f"Detected {len(ids)} ArUco marker(s) with ID(s): {ids.flatten()}")
+            #print(f"Detected {len(ids)} ArUco marker(s) with ID(s): {ids.flatten()}")
 
         if rejected:
             cv2.aruco.drawDetectedMarkers(frame, rejected, borderColor=(0, 0, 255))
-            print(f"Rejected candidates: {len(rejected)}")
+            #print(f"Rejected candidates: {len(rejected)}")
 
-        return frame
+        return ids, corners, frame
+
         
