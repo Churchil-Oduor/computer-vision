@@ -93,5 +93,4 @@ class HandTrack:
 
             # Debug info
             cv.putText(frame, f"Total Angle: {self.total_angle:.1f}", (30, 40), cv.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
-
         return self.total_angle

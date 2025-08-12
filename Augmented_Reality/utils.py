@@ -51,18 +51,63 @@ class Calculations:
 
         return T.dot(point - c) + c
 
+
+class Transformation:
+    """
+    Does mathematical transformation calculations
+
+    """
+    def __init__(self):
+        pass
+
+    def enlargment(self, p1, scale=1):
+        """
+        computes enlargment by scaling the point given
+
+        Args:
+            p1(tuple): point on x, y, z plane
+            scale(int): scaling factor to be applied to point p1
+        """
+        return p1 * scale
+
+    def rotation(self, p1, theta):
+
+        """
+        rotates point given about origin
+
+        Args:
+            p1(numpy array): point on x, y, z plane
+            theta(float): angle in radians
+        Returns the rotated co-ordinate points
+        """
+        R = np.array([[np.cos(theta), np.sin(theta) * -1],
+                      [np.sin(theta), np.cos(theta)]])
+        res = R.dot(p1)
+        return res
+
+    def translation(self, p1, t_vector):
+        """
+        Translates a point using translation vector.
+
+        Args:
+            p1(tuple): point to be translated
+            t_vector(tuple): the translation vector
+
+        Returns the translated version of p1
+        """
+        return p1 + t_vector
+
+        
+
+
 def main():
-    x1, y1 = 10, 0
-    x2, y2 = 16, 0
+    R = Transformation()
+    p1 = np.array([4, 1])
 
-    x3, y3 = 5, 7
-    x4, y4 = -19, 700
-    line_1 = [(x1, y1), (x2, y2)]
-    line_2 = [(x3, y3), (x4, y4)]
-
-    calc = Calculations()
-    angle = calc.rotationAngle(line_1, line_2)
-    print(angle)
+    rot = R.rotation(p1, 1.5708)
+    t_vec = np.array([3, 2])
+    tran = R.translation(rot, t_vec)
+    print(tran)
 
 if __name__=="__main__":
     main()
