@@ -44,5 +44,5 @@ class Render:
 
     def lowPassFilter(self, current_z):
         smoothed_z = self.alpha * current_z + (1 - self.alpha) * self.p_smoothed_z
-        self.p_smoother_z = smoothed_z
+        self.p_smoothed_z = smoothed_z
         return smoothed_z
